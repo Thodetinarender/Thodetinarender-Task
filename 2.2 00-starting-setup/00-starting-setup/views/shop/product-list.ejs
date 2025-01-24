@@ -30,6 +30,15 @@
                                     <a href="/products/<%= product.id %>" class="btn">Details</a>
                                     <%- include('../includes/add-to-cart.ejs', {product:product}) %>
                                 </div>
+                                <!-- <div class="card__actions">
+                                    <a href="/products/<%= product.id %>" 
+                                       class="btn" 
+                                       data-product-id="<%= product.id %>"
+                                       onclick="console.log('Clicking product with ID:', '<%= product.id %>')">
+                                        Details
+                                    </a>
+                                    <%- include('../includes/add-to-cart.ejs', {product:product}) %>
+                                </div> -->
                             </article>
                             <% } %>
                     </div>

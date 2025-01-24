@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "D:/Mar24-Project/stripe-provider-create-session-Mar25"
+		},
+		{
+			"name": "Payments-Initiate-Processing-Service-March24",
+			"path": "../Payment-Processing(Curser-AI)/Payments-Initiate-Processing-Service-March24"
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
