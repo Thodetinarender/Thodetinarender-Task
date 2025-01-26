@@ -1,0 +1,42 @@
+<!-- views/user/users-list.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+</head>
+<body>
+    <h1>Users List</h1>
+    <ul>
+        <% users.forEach(user => { %>
+            <li>
+                <%= user.name %> - <%= user.email %> 
+                <button onclick="deleteUser('<%= user.id %>')">Delete</button>
+            </li>
+        <% }); %>
+    </ul>
+
+    <br>
+    <a href="/user/add-user">Add New User</a>
+
+    <script>
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                fetch(`/user/delete-user/${userId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload(); // Reload to update the users list
+                })
+                .catch(error => {
+                    alert('Failed to delete user');
+                    console.log(error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
