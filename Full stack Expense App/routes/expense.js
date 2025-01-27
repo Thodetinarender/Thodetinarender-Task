@@ -21,4 +21,10 @@ router.get('/expenses-list', expenseController.getExpenses);
 // POST route to delete an expense
 router.post('/delete-expense/:expenseId', expenseController.deleteExpense);
 
+// Route to display the edit form for an expense
+router.get('/edit-expense/:expenseId', expenseController.getEditExpense);
+
+// Route to handle the actual update of the expense
+router.post('/edit-expense/:expenseId', expenseController.updateExpense);
+
 module.exports = router;

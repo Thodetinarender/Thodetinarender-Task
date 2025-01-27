@@ -31,7 +31,7 @@
                 <form action="/expense/delete-expense/<%= expense.id %>?_method=DELETE" method="POST" style="display:inline;">
                   <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
-                
+                <a href="/expense/edit-expense/<%= expense.id %>" class="btn btn-warning btn-sm">Edit</a> <!-- Edit Button -->
               </td>
             </tr>
           <% }); %>

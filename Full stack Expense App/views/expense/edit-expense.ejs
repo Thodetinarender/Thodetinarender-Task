@@ -1,0 +1,36 @@
+<!-- views/expense/edit-expense.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Expense</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Edit Expense</h1>
+    <form action="/expense/edit-expense/<%= expense.id %>" method="POST">
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="amount" name="amount" value="<%= expense.amount %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" value="<%= expense.description %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" id="category" name="category" required>
+          <option value="Food" <%= expense.category === 'Food' ? 'selected' : '' %>>Food</option>
+          <option value="Transport" <%= expense.category === 'Transport' ? 'selected' : '' %>>Transport</option>
+          <option value="Shopping" <%= expense.category === 'Shopping' ? 'selected' : '' %>>Shopping</option>
+          <option value="Other" <%= expense.category === 'Other' ? 'selected' : '' %>>Other</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Expense</button>
+    </form>
+    <a href="/expense/expenses-list" class="btn btn-secondary mt-3">Back to Expenses List</a>
+  </div>
+</body>
+</html>
