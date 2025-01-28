@@ -1,0 +1,97 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Slots</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Available Slots</h1>
+
+    <div class="row mt-3">
+      <% slots.forEach(slot => { %>
+        <div class="col-md-3 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= new Date(slot.slot_time).toLocaleString() %></h5>
+              <p class="card-text"><%= slot.available %> Slots Available</p>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#bookingModal" data-slotid="<%= slot.id %>" data-slottime="<%= new Date(slot.slot_time).toLocaleString() %>">Book Now</button>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <!-- index.ejs -->
+    <div class="container">
+  <h2>Booked Slots</h2>
+  <div class="row">
+    <% bookings.forEach((booking) => { %>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= booking.user ? booking.user.dataValues.name : 'No Name' %></h5>
+            <p class="card-text">Join Google Meet: <a href="https://meet.google.com/example-link" target="_blank">Click here</a></p>
+            <p class="card-text">Time: <%= booking.slot ? booking.slot.dataValues.slot_time : 'No Time' %></p>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+    
+
+    <!-- Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Book Slot</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/book" method="POST">
+              <input type="hidden" id="slotId" name="slotId">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="time">Slot Time</label>
+                <input type="text" class="form-control" id="time" disabled>
+              </div>
+              <button type="submit" class="btn btn-primary">Book</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script>
+    $('#bookingModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget); 
+      var slotId = button.data('slotid');
+      var slotTime = button.data('slottime');
+      
+      var modal = $(this);
+      modal.find('.modal-body #slotId').val(slotId);
+      modal.find('.modal-body #time').val(slotTime);
+    });
+  </script>
+</body>
+</html>
