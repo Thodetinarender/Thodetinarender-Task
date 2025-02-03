@@ -1,3 +1,4 @@
+
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
 
@@ -16,7 +17,7 @@ const Booking = sequelize.define('booking', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  // Add other fields as needed, such as createdAt, updatedAt, etc.
 });
+
 
 module.exports = Booking;

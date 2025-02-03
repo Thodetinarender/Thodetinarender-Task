@@ -11,31 +11,46 @@
   <div class="container">
     <h1 class="mt-5">Available Slots</h1>
 
-    <div class="row mt-3">
-      <% slots.forEach(slot => { %>
-        <div class="col-md-3 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= new Date(slot.slot_time).toLocaleString() %></h5>
-              <p class="card-text"><%= slot.available %> Slots Available</p>
-              <button class="btn btn-primary" data-toggle="modal" data-target="#bookingModal" data-slotid="<%= slot.id %>" data-slottime="<%= new Date(slot.slot_time).toLocaleString() %>">Book Now</button>
+      <div class="row mt-3">
+        <% slots.forEach(slot => { 
+             if (slot.available > 0) {
+        %>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><%= new Date(slot.slot_time).toLocaleString() %></h5>
+                <p class="card-text"><%= slot.available %> Slots Available</p>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#bookingModal" 
+                  data-slotid="<%= slot.id %>" 
+                  data-slottime="<%= new Date(slot.slot_time).toLocaleString() %>">
+                  Book Now
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      <% }); %>
-    </div>
+        <%  } %>
+        <% }); %>
+      </div>
+      
+   
+    
 
     <!-- index.ejs -->
     <div class="container">
   <h2>Booked Slots</h2>
   <div class="row">
     <% bookings.forEach((booking) => { %>
-      <div class="col-md-4">
+      <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title"><%= booking.user ? booking.user.dataValues.name : 'No Name' %></h5>
             <p class="card-text">Join Google Meet: <a href="https://meet.google.com/example-link" target="_blank">Click here</a></p>
-            <p class="card-text">Time: <%= booking.slot ? booking.slot.dataValues.slot_time : 'No Time' %></p>
+            <p class="card-text">Time: <%= booking.slot ? new Date(booking.slot.dataValues.slot_time).toLocaleString('en-US', { timeZoneName: 'short' }).replace(/ GMT.*/,'') : 'No Time' %></p>
+            <!--  Cancel Booking Button -->
+             <form action="/cancel-booking" method="POST">
+              <input type="hidden" name="bookingId" value="<%= booking.id %>">
+              <button type="submit" class="btn btn-danger">Cancel</button>
+            </form>
           </div>
         </div>
       </div>
